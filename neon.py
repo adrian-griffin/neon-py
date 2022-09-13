@@ -24,7 +24,7 @@ class mainGUIPrompt(Cmd):
     def do_shell(self, line):
         "Execute CLI command on your external OS within the Neon OS"
         print("Executing: ", line)
-        output = subprocess.popen(line).read()
+        output = os.popen(line).read()
         print(output)
         self.last_output = output
 
@@ -68,8 +68,8 @@ class mainGUIPrompt(Cmd):
     print("      Smartaira Neon-OS --> v0.2.20")
     intro = '''Helpful Commands:
 
-       '?' -  List All Currently Available Commands
-    'exit' -  Exit Out of Nept Terminal
+       '?' -  Help
+       'q' -  Exit
     '''
     print("")
     print("")
