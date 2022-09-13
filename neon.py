@@ -1,20 +1,24 @@
+from asyncio import subprocess
 from cmd import Cmd
-
+import os
+import time
 
 ###[init] [Deploying global vars]
 ############
 global neptVersion
 global localSystemOS
 
-###[dec] [Declaring global var values]
+###[dec] [Declaring global var values]i
 ############
 neptVersion = '0.0.41'
-
 def detectOS():
     import platform
     localSystemOS = platform.system()
     return localSystemOS
 localSystemOS = detectOS()
+
+
+
 
 
 
@@ -25,7 +29,18 @@ localSystemOS = detectOS()
 
 class mainGUIPrompt(Cmd):
     import os
-    import time
+
+    last_output = ''
+
+    def do_shell(self, line):
+        "Execute CLI command from external OS within Neon OS"
+        print("Executing: ", line)
+        output = subprocess.popen(line).read()
+        print(output)
+        self.last_output = output
+
+
+
     if localSystemOS == "Windows":
         os.system('cls')
     elif localSystemOS == "Linux":
@@ -33,14 +48,14 @@ class mainGUIPrompt(Cmd):
     elif localSystemOS == 'Darwin':
         os.system('clear')
 
+
+    
+
     print("")
     print("")
 
     asciiWelcomes = {
 "noc1":'''
--------------------------------------------------------------  
-            
-
                 ███╗   ██╗ ██████╗  ██████╗
                 ████╗  ██║██╔═══██╗██╔════╝
                 ██╔██╗ ██║██║   ██║██║     
@@ -49,9 +64,7 @@ class mainGUIPrompt(Cmd):
                 ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝
                            
 
--------------------------------------------------------------  
 ''',"neon1":'''
--------------------------------------------------------------  
             
             ███╗   ██╗███████╗ ██████╗ ███╗   ██╗
             ████╗  ██║██╔════╝██╔═══██╗████╗  ██║
@@ -60,14 +73,13 @@ class mainGUIPrompt(Cmd):
             ██║ ╚████║███████╗╚██████╔╝██║ ╚████║
             ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝
 
--------------------------------------------------------------  
 '''}                                 
 
     print(asciiWelcomes["noc1"])
+    print("      Smartaira Neon-OS --> v0.2.20")
     intro = '''Helpful Commands:
 
        '?' -  List All Currently Available Commands
-    'help' -  List All Documented Commands
     'exit' -  Exit Out of Nept Terminal
     '''
     print("")
