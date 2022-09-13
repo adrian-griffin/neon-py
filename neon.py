@@ -17,23 +17,12 @@ def detectOS():
     return localSystemOS
 localSystemOS = detectOS()
 
-
-
-
-
-
-        
-
-
-
-
 class mainGUIPrompt(Cmd):
     import os
 
     last_output = ''
-
     def do_shell(self, line):
-        "Execute CLI command from external OS within Neon OS"
+        "Execute CLI command on your external OS within the Neon OS"
         print("Executing: ", line)
         output = subprocess.popen(line).read()
         print(output)
