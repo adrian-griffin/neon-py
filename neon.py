@@ -77,7 +77,7 @@ class mainGUIPrompt(Cmd):
             ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝'''}                                 
 
     print(asciiWelcomes["noc1"])
-    print('''Currenlty running Neon OS: v0.2.20''')
+    print('''Currenlty running Neon OS (v0.2.20) from a '''+str(localSystemOS)+" machine.")
     intro = '''
 Press ? for help or q to quit
     afasdf
