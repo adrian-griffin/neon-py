@@ -1,41 +1,55 @@
-from asyncio import subprocess
 from cmd import Cmd
-import os
-import time
-
-###[init] [Deploying global vars]
-############
-global neptVersion
-global localSystemOS
-
-###[dec] [Declaring global var values]i
-############
-neptVersion = '0.0.41'
-def detectOS():
-    import platform
-    localSystemOS = platform.system()
-    return localSystemOS
-localSystemOS = detectOS()
 
 class mainGUIPrompt(Cmd):
     import os
+    import time
+    import platform
+    import os
 
-    last_output = ''
+    global neonVersion
+    global localSystemOS
+
+    neonVersion = '0.0.41'
+
+    def detectOS():
+        import platform
+        localSystemOS = platform.system()
+        return localSystemOS
+
+    localSystemOS = detectOS()
+
+    def wipeterm():
+        import os
+        if localSystemOS == "Windows":
+            os.system('cls')
+        elif localSystemOS == "Linux":
+            os.system('clear')
+        elif localSystemOS == 'Darwin':
+            os.system('clear')
+
+    wipeterm()
+
+    def loginAuthMessage_GENERIC():
+        import time
+        print('No user account set up!')
+        print('...')
+        time.sleep(1.5)
+        print("Logging in as: 'guest'")
+        time.sleep(1)
+
+    loginAuthMessage_GENERIC()
+
+
+    #last_output = ''
+
     def do_shell(self, line):
-        "Execute CLI command on your external OS within the Neon OS"
+        "Execute CLI commands on your external OS from within the Neon OS"
         print("Executing: ", line)
         output = os.popen(line).read()
         print(output)
         self.last_output = output
 
 
-
-    if localSystemOS == "Windows":
-        os.system('cls')
-    elif localSystemOS == "Linux":
-        os.system('clear')
-    elif localSystemOS == 'Darwin':
-        os.system('clear')
 
 
     
@@ -45,12 +59,12 @@ class mainGUIPrompt(Cmd):
 
     asciiWelcomes = {
 "noc1":'''
-                ███╗   ██╗ ██████╗  ██████╗
-                ████╗  ██║██╔═══██╗██╔════╝
-                ██╔██╗ ██║██║   ██║██║     
-                ██║╚██╗██║██║   ██║██║     
-                ██║ ╚████║╚██████╔╝╚██████╗
-                ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝
+  ███╗   ██╗ ██████╗  ██████╗
+  ████╗  ██║██╔═══██╗██╔════╝
+  ██╔██╗ ██║██║   ██║██║     
+  ██║╚██╗██║██║   ██║██║     
+  ██║ ╚████║╚██████╔╝╚██████╗
+  ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝
                            
 
 ''',"neon1":'''
@@ -60,22 +74,17 @@ class mainGUIPrompt(Cmd):
             ██╔██╗ ██║█████╗  ██║   ██║██╔██╗ ██║
             ██║╚██╗██║██╔══╝  ██║   ██║██║╚██╗██║
             ██║ ╚████║███████╗╚██████╔╝██║ ╚████║
-            ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝
-
-'''}                                 
+            ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝'''}                                 
 
     print(asciiWelcomes["noc1"])
-    print("      Smartaira Neon-OS --> v0.2.20")
-    intro = '''Helpful Commands:
-
-       '?' -  Help
-       'q' -  Exit
+    print('''Currenlty running Neon OS: v0.2.20''')
+    intro = '''
+Press ? for help or q to quit
+    afasdf
     '''
     print("")
     print("")
-    prompt = '''[agriffin@Neon]
-    
-$  '''
+    prompt = "[agriffin@Neon] $ "
     
     def do_exit(self, inp):
         print("")
