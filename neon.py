@@ -30,18 +30,20 @@ class mainGUIPrompt(Cmd):
 
     wipeterm()
 
-    def loginAuthMessage_GENERIC():
+    def loginAuthMessage_NONETYPE():
         import time
         print("")
-        print('No user accounts have been set up!')
+        print('NOTICE: No user accounts have been set up!')
         time.sleep(.7)
+        print("")
         print("Navigate to 'config/users/generate' to set up a user!")
-        print('...')
+        print("")        
         time.sleep(2)
         print("Logging in as: 'guest'")
         time.sleep(1)
 
-    loginAuthMessage_GENERIC()
+    if LOGIN_BOOL == False:
+        loginAuthMessage_NONETYPE()
 
 
     #last_output = ''
@@ -85,27 +87,22 @@ class mainGUIPrompt(Cmd):
     print('''                                   NEON OS v(0.2.20) running from a Windows machine.
 
 ------------------------------------------------------------------------------------------------------------------------
-                     Create ~/.xonshrc file manually or use xonfig to suppress the welcome message
-
-Basic and helpful commands:
-  ?           # Display help commands
-  q           # Open the xonsh tutorial in the browser
 
 
+  [ ? ]        # Display help commands
+  [ q ]        # Exit NeonOS
 
-  xpip install -U 'xonsh[full]'
+  '''+str()+str()+'''
 
-------------------------------------------------------------------------------------------------------------------------
-    
-    
-    ''')
-    print('''NEON OS (v0.2.20) running from a '''+str(localSystemOS)+" machine.")
-    intro = '''
-Press ? for help or q to quit
-
-    '''
+------------------------------------------------------------------------------------------------------------------------''')
     print("")
-    print("")
+
+    def 
+
+    if LOGIN_BOOL == False:
+
+
+
     prompt = "[agriffin@Neon] $ "
     
     def do_exit(self, inp):
