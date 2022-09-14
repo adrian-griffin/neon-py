@@ -1,6 +1,7 @@
 from cmd import Cmd
 
 class mainGUIPrompt(Cmd):
+    from rich import print 
     import os
     import time
     import platform
@@ -31,9 +32,12 @@ class mainGUIPrompt(Cmd):
 
     def loginAuthMessage_GENERIC():
         import time
-        print('No user account set up!')
+        print("")
+        print('No user accounts have been set up!')
+        time.sleep(.7)
+        print("Navigate to 'config/users/generate' to set up a user!")
         print('...')
-        time.sleep(1.5)
+        time.sleep(2)
         print("Logging in as: 'guest'")
         time.sleep(1)
 
@@ -68,19 +72,22 @@ class mainGUIPrompt(Cmd):
                            
 
 ''',"neon1":'''
-            
-            ███╗   ██╗███████╗ ██████╗ ███╗   ██╗
-            ████╗  ██║██╔════╝██╔═══██╗████╗  ██║
-            ██╔██╗ ██║█████╗  ██║   ██║██╔██╗ ██║
-            ██║╚██╗██║██╔══╝  ██║   ██║██║╚██╗██║
-            ██║ ╚████║███████╗╚██████╔╝██║ ╚████║
-            ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝'''}                                 
+  ███╗   ██╗███████╗ ██████╗ ███╗   ██╗
+  ████╗  ██║██╔════╝██╔═══██╗████╗  ██║
+  ██╔██╗ ██║█████╗  ██║   ██║██╔██╗ ██║
+  ██║╚██╗██║██╔══╝  ██║   ██║██║╚██╗██║
+  ██║ ╚████║███████╗╚██████╔╝██║ ╚████║
+  ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝
+                           
 
-    print(asciiWelcomes["noc1"])
-    print('''Currenlty running Neon OS (v0.2.20) from a '''+str(localSystemOS)+" machine.")
+'''}                                 
+
+    print(asciiWelcomes["neon1"])
+    print("")
+    print('''NEON OS (v0.2.20) running from a '''+str(localSystemOS)+" machine.")
     intro = '''
 Press ? for help or q to quit
-    afasdf
+
     '''
     print("")
     print("")
