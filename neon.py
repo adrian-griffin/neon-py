@@ -136,7 +136,7 @@ information, enter [ adduser.noconf ]
         print("adding '{}'".format(inp))
     
     def help_add(self):
-        print("Add a new entry to tfhe system.")
+        print("Add a new entry to the system.")
     
     def default(self, inp):
         if inp == 'x' or inp == 'q':
@@ -147,7 +147,7 @@ information, enter [ adduser.noconf ]
     do_EOF = do_exit
     help_EOF = help_exit
 
-
+    global pageStorageDict
     pageStorageDict = {
         "confyg":{ 
             "users":['generate','edit','remove'],
@@ -161,10 +161,10 @@ information, enter [ adduser.noconf ]
 
     }
 
-    def do_ls(pageStorageDict):
-        print(pageStorageDict)
-
-    def do_confyg(pageStorageDict):
+    def do_ls(self,pageStorageDict):
+        for i in pageStorageDict:
+            print(pageStorageDict[i])
+    def do_confyg(self,pageStorageDict):
         print(pageStorageDict["confyg"])
 
 
