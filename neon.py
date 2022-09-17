@@ -48,19 +48,25 @@ class mainGUIPrompt(Cmd):
 
     if LOGIN_BOOL == False:
         loginAuthMessage_NONETYPE()
+    elif LOGIN_BOOL == True:
+        loginAuthMessage_TRUETYPE()
 
 
-    #last_output = ''
+
+    last_output = ''
 
     def do_shell(self, line):
         import os
         "Execute CLI commands on your external OS from within the Neon OS"
-        print("Executing: ", line)
-        output = os.popen(line).read()
+        if len(line) >  0:
+            output = os.popen(line).read()
         print(output)
         self.last_output = output
 
-
+    def do_echo(self, line):
+        "Print the input, replacing '$out' with the output of the last shell command"
+        # Obviously not robust
+        print(line.replace('$out', self.last_output))
 
 
     
@@ -70,12 +76,12 @@ class mainGUIPrompt(Cmd):
 
     asciiWelcomes = {
 "noc1":'''
-  ███╗   ██╗ ██████╗  ██████╗
-  ████╗  ██║██╔═══██╗██╔════╝
-  ██╔██╗ ██║██║   ██║██║     
-  ██║╚██╗██║██║   ██║██║     
-  ██║ ╚████║╚██████╔╝╚██████╗
-  ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝
+                                        ███╗   ██╗ ██████╗  ██████╗
+                                        ████╗  ██║██╔═══██╗██╔════╝
+                                        ██╔██╗ ██║██║   ██║██║     
+                                        ██║╚██╗██║██║   ██║██║     
+                                        ██║ ╚████║╚██████╔╝╚██████╗
+                                        ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝
                            
 
 ''',"neon1":'''
@@ -95,18 +101,18 @@ class mainGUIPrompt(Cmd):
 
 
   [ ? ]  --   # Display help commands
-  [ q ]  --   # Exit NeonOS
+  [ q ]  --   # Exit
+  [ ! ]  --   # Execute command on host system
 
   '''+str()+str()+'''
 ------------------------------------------------------------------------------------------------------------------------''')
     print("")
 
     def onboardNewUser():
-        print('''   New? To get started, type [ config ] to change into the /config/ folder.
-Then do the same to get into /config/users/generate/
+        print('''   New? To get started, type [ configure ] to change into the /configure/ directory and begin editing
 
    Otherwise, to quickly set up a new user without providing credentials or other userful
-information, enter [ adduser.noconf ]
+information, enter [ adduser ]
 ''')
 
     if LOGIN_BOOL == False:
@@ -132,17 +138,21 @@ information, enter [ adduser.noconf ]
     def help_exit(self):
         print('exit the application. Shorthand: x q Ctrl-D.')
     
-    def do_add(self, inp):
-        print("adding '{}'".format(inp))
+    def do_configure(self,inp):
+        import os
+        output = os.popen('nano ~/bin/neon/config.ini').read()
+        #output = os.popen('notepad neon.py').read()
+
+
     
     def help_add(self):
         print("Add a new entry to the system.")
     
     def default(self, inp):
-        if inp == 'x' or inp == 'q':
+        if inp == 'q':
             return self.do_exit(inp)
     
-        print("Default: {}".format(inp))
+        ### print("Default: {}".format(inp))
     
     do_EOF = do_exit
     help_EOF = help_exit
@@ -170,4 +180,8 @@ information, enter [ adduser.noconf ]
 
     
 if __name__ == '__main__':
-    mainGUIPrompt().cmdloop()
+    import sys
+    if len(sys.argv) > 1:
+        mainGUIPrompt().onecmd(' '.join(sys.argv[1:]))
+    else:
+        mainGUIPrompt().cmdloop()
