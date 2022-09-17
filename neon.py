@@ -141,7 +141,7 @@ information, enter [ adduser ]
     def do_configure(self,inp):
         import os
         import subprocess
-        output = subprocess.popen('nano ~/bin/neon/config.ini')
+        output = subprocess.run('nano ~/bin/neon/config.ini')
         #output = os.popen('notepad neon.py').read()
 
 
